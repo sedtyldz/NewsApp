@@ -6,12 +6,29 @@
 //
 
 import SwiftUI
+import FirebaseCore
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}
+
 
 @main
 struct NewsAppApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @AppStorage("islogin") var islogin:Bool = false
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if islogin {
+                MainPage()
+            }
+            else{
+                ContentView()
+            }
         }
     }
 }
